@@ -12,6 +12,7 @@ export interface IBook extends Document {
   }[];
   comments: Types.ObjectId[];
   createdBy: Types.ObjectId;
+  imageUrl?: string; // Add imageUrl to the interface (optional)
 }
 
 const BookSchema = new Schema<IBook>(
@@ -23,12 +24,13 @@ const BookSchema = new Schema<IBook>(
     genre: { type: String, required: true },
     reviews: [
       {
-        user: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Corrected
+        user: { type: Schema.Types.ObjectId, ref: "User", required: true },
         rating: { type: Number, required: true, min: 1, max: 5 },
       },
     ],
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }], // Corrected
-    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Corrected
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    imageUrl: { type: String, default: "" }, // Add imageUrl field
   },
   { timestamps: true }
 );
